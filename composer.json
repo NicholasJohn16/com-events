@@ -1,4 +1,15 @@
 {   
+    "name"  : "NicholasJohn16/events",
     "type"  : "anahita-extension",
-    "name"  : "NicholasJohn16/events"    
+    "description": "Events app for Anahita Social Engine",
+    "homepage": "http://nicholasjohn16.com",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Nick Swinford",
+            "email": "nicholasjohn16@gmail.com",
+            "homepage": "http://nicholasjohn16.com",
+            "role": "Developer"
+        }
+    ]
 }
