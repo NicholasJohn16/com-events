@@ -1,0 +1,16 @@
+{
+	"name": "Events",
+	"description": "Social Events listing",
+	"type": "component",
+	"version": "1.0.0",
+	"copyright": [
+		"Copyright 2019 Stonewall Gaming Network"
+	],
+	"authors": [
+		{
+			"name": "Nick Swinford",
+			"email": "nick@nicholsajohn16.com",
+			"homepage": "http://nicholsajohn16.com"
+		}
+	]
+}
