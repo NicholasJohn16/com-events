@@ -20,9 +20,6 @@ class ComEventsControllerEvent extends ComActorsControllerDefault
 	protected function _actionAdd(AnCommandContext $context) {
 		$data = $context->data;
 
-		error_log('start_date: '.$context->data->startDate);
-		error_log('end_data: '.$context->data->endDate);
-
 		if(!$context->data->endDate) {
 			$startDate = new DateTime($context->data->startDate);
 			$context->data->endDate = $startDate->add(new DateInterval('PT1H'))->format(DATE_ATOM);
