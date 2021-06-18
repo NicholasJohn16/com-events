@@ -1,6 +1,6 @@
 <?php
 
-class ComEventsDomainSerializerEvent extends ComActorsDomainSerializerActor
+class ComEventsDomainSerializerEvent extends ComBaseDomainSerializerDefault
 {
 	public function toIcalArray($entity) {
 		$settings = $this->getService('com:settings.setting');

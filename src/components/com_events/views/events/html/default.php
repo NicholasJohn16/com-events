@@ -45,9 +45,9 @@
 
 			<?php unset($url['layout']); ?>
 
-			<button type="button" data-target="#rss" data-toggle="collapse" class="btn">RSS</button>
-			<button type="button" data-target="#ical" data-toggle="collapse" class="btn">iCal</button>
-			<button type="button" data-target="#json" data-toggle="collapse" class="btn">JSON</button>
+			<button type="button" data-target="#rss" data-toggle="collapse" class="btn btn-small">RSS</button>
+			<button type="button" data-target="#ical" data-toggle="collapse" class="btn btn-small">iCal</button>
+			<button type="button" data-target="#json" data-toggle="collapse" class="btn btn-small">JSON</button>
 
 			<style>
 				.subscribe-links input {
@@ -75,7 +75,7 @@
 			$hashtags = array();
 			foreach ($items as $item) {
 				foreach($item->eventHashtags as $hashtag) {
-					$hashtags[$hashtag->id] = $hashtag->hashtag;
+					$hashtags[$hashtag->hashtag->id] = $hashtag->hashtag;
 				}
 			}
 		?>

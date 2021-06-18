@@ -19,6 +19,7 @@ class ComEventsViewEventsIcal extends LibBaseViewAbstract {
 		$data[] = 'BEGIN:VCALENDAR';
 		$data[] = 'VERSION:2.0';
 		$data[] = 'PRODID:-//'.$settings->sitename.'//NONSGML Events v1.0//EN';
+		$data[] = 'NAME:'.$settings->sitename . ' Calendar';
 
 		if (AnInflector::isPlural($name)) {
 			$data = array_merge($data, $this->_getList());
@@ -28,7 +29,7 @@ class ComEventsViewEventsIcal extends LibBaseViewAbstract {
 
 		$data[] = 'END:VCALENDAR';
 
-		$this->output = implode("\n", $data);
+		$this->output = implode("\r\n", $data);
 
 		return $this->output;
 	}
@@ -59,14 +60,12 @@ class ComEventsViewEventsIcal extends LibBaseViewAbstract {
 		$data = array();
 
 		if ($item = $this->_state->getItem()) {
-			
 			$data[] = 'BEGIN:VEVENT';
 
 			$serializer = $this->getService('com:events.domain.serializer.event');
 			$data = array_merge($data, $serializer->toIcalArray($item));
 
 			$data[] = 'END:VEVENT';
-
 		}
 
 		return $data;

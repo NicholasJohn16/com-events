@@ -8,10 +8,10 @@ class ComEventsControllerEvent extends ComActorsControllerDefault
 
 		if($this->filter == 'past') {
 			$query->order('start_date', 'desc');
-			$query->where('end_date', '<', $today);
+			$query->where('event.end_date', '<', $today);
 		} else {
 			$query->order('start_date', 'asc');
-			$query->where('end_date', '>', $today);
+			$query->where('event.end_date', '>', $today);
 		}
 
 		parent::_actionBrowse($context);

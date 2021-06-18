@@ -1,17 +1,24 @@
 <? defined('KOOWA') or die('Restricted access') ?>
 
+<? if (defined('ANDEBUG') && ANDEBUG) : ?>
+<script src="com_actors/js/cover.js" />
+<? else: ?>
+<script src="com_actors/js/min/cover.min.js" />
+<? endif; ?>
+
 <? $socialgraphGadget = $gadgets->extract('socialgraph') ?>
 
 <? if ($item->coverSet()): ?>
 <div
-	class="cover-container light"
-	data-trigger="Cover"
+	class="profile-cover parallax-window"
+	data-parallax="scroll"
+	data-image-src="<?= $item->getCoverURL('large'); ?>"
 	data-src-large="<?= $item->getCoverURL('large'); ?>"
 	data-src-medium="<?= $item->getCoverURL('medium'); ?>">
 </div>
 <? endif; ?>
 
-<div class="row-fluid<?= ($item->coverSet()) ? ' has-cover' : '' ?>" id="node-container">
+<div class="row-fluid<?= ($item->coverSet()) ? ' has-cover' : '' ?>" id="actor-profile">
 	<div class="span2">
 		<div id="actor-avatar">
 		<?= @avatar($item, 'medium', false) ?>
