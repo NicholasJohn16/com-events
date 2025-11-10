@@ -1,0 +1,9 @@
+{
+    "fields": [{
+        "name": "rss_description",
+        "type": "text",
+        "default": "",
+        "label": "RSS Description",
+        "description": ""
+    }]
+}
