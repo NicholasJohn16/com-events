@@ -60,12 +60,14 @@ class ComEventsViewEventsIcal extends LibBaseViewAbstract {
 		$data = array();
 
 		if ($item = $this->_state->getItem()) {
+			
 			$data[] = 'BEGIN:VEVENT';
 
 			$serializer = $this->getService('com:events.domain.serializer.event');
 			$data = array_merge($data, $serializer->toIcalArray($item));
 
 			$data[] = 'END:VEVENT';
+
 		}
 
 		return $data;

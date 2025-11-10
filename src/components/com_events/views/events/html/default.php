@@ -1,4 +1,10 @@
-<? defined('KOOWA') or die('Restricted access');?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js" />
+
+<script>
+	$(document).ready(function() {
+		new ClipboardJS('.btn-copy');
+	});
+</script>
 
 <style>
 	.entity-portrait-medium img {
@@ -14,11 +20,25 @@
 	h4 small {
 		color: inherit;
 	}
+	.entity-meta {
+		line-height: 2.25rem;
+	}
+	.an-page-header {
+		display: none;
+	}
+
+	.jumbotron {
+	background-position: center center;
+	background-size: cover;
+	}
+	.jumbotron h4, .jumbotron h5 {
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		font-weight: bold;
+	}
 </style>
 
-
 <div class="row">
-	<div class="span9">
+	<div class="col-lg-9">
 		<?= @helper('ui.header') ?>
 
 		<?
@@ -31,7 +51,28 @@
 			}
 		?>
 
+		<?php if (count($items)): ?>
+			<div class="row">
+				<div class="col">
+					<?php $first = $items->top(); ?>
+					<?php $coverURL = $first->getCoverURL('large') ?>
+					<?php $coverURL = str_replace('\\', '/', $coverURL) ?>
+					<div class="jumbotron border shadow" style="background-image:url(<?= $coverURL ?>)" >
+						<h4 class="mb-0"><a href="<?= @route($first->getURL()) ?>"><?= $first->title ?></a></h4>
+						<h5 class="mb-3"><small><time datetime="<?= $first->startDate->getDate(DATE_FORMAT_ISO_EXTENDED) ?>Z" data-format="MMMM Do, h:mm a"><?= @helper('date', $first); ?></time></small></h5>
+						<p>
+							<?php foreach ($first->eventHashtags as $tag): ?>
+								<?php $name = $tag->hashtag->name; ?>
+								<a href="<?= @route(['view' => 'events', 'hashtag[]' => $name]) ?>" class="badge badge-info text-white"><?= $name ?></a>
+							<?php endforeach ?>
+						</p>
+					</div>
+				</div>
+			</div>
+		<?php endif ?>
+
 		<?= @helper('ui.filterbox', @route($url)) ?>
+
 		<?= @infinitescroll($items, array(
 			'id' => 'an-actors',
 			'url' => $url,
@@ -39,54 +80,38 @@
 			'columns' => 3
 		)) ?>
 	</div>
-	<div class="span3">
-		<div class="well well-small subscribe-links">
-			<h4><?= @text('COM-EVENTS-EVENTS-SUBSCRIBE') ?></h4>
+	<div class="col">
+		<div class="card my-3 shadow-none">
+			<div class="card-body">
+				<h5 class="card-title"><?= @text('COM-EVENTS-EVENTS-SUBSCRIBE') ?></h5>
 
-			<?php unset($url['layout']); ?>
+				<?php unset($url['layout']); ?>
+				<button type="button" class="btn btn-info btn-copy" data-clipboard-text="<?= @route(array_merge($url, ['format' => 'rss'])) ?>">RSS</button>
+				<button type="button" class="btn btn-info btn-copy" data-clipboard-text="<?= @route(array_merge($url, ['format' => 'ical'])) ?>">iCal</button>
+				<button type="button" class="btn btn-info btn-copy" data-clipboard-text="<?= @route(array_merge($url, ['format' => 'json'])) ?>">JSON</button>
 
-			<button type="button" data-target="#rss" data-toggle="collapse" class="btn btn-small">RSS</button>
-			<button type="button" data-target="#ical" data-toggle="collapse" class="btn btn-small">iCal</button>
-			<button type="button" data-target="#json" data-toggle="collapse" class="btn btn-small">JSON</button>
-
-			<style>
-				.subscribe-links input {
-					margin-bottom: 0;
-				}
-				.subscribe-links input {
-					margin-top: 1rem;
-				}
-			</style>
-
-			<div id="rss" class="collapse">
-				<input class="input-block-level" type="text" readonly value="<?= @route(array_merge($url, ['format' => 'rss'])) ?>">
-			</div>
-
-			<div id="ical" class="collapse">
-				<input class="input-block-level" type="text" readonly value="<?= @route(array_merge($url, ['format' => 'ical'])) ?>">
-			</div>
-
-			<div id="json" class="collapse">
-				<input class="input-block-level" type="text" readonly value="<?= @route(array_merge($url, ['format' => 'json'])) ?>">
+				<p class="text-muted mb-0 mt-1"><small>Click or tap to copy links.</small></p>
 			</div>
 		</div>
-	
+
 		<?php
 			$hashtags = array();
 			foreach ($items as $item) {
-				foreach($item->eventHashtags as $hashtag) {
-					$hashtags[$hashtag->hashtag->id] = $hashtag->hashtag;
+				foreach($item->eventHashtags as $tag) {
+					if(in_array($tag->hashtag->name, $hashtag)) continue;
+					$hashtags[$tag->hashtag->id] = $tag->hashtag;
 				}
 			}
 		?>
 
-		<div class="an-gadget">
-			<h3 class="gadget-title"><?= @text('COM-EVENTS-EVENTS-TRENDING-HASHTAGS') ?></h3>
-			<div class="gadget-content">
-				<ul class="nav nav-pills nav-stacked">
-					<?php foreach ($hashtags as $hashtag): ?>
-						<li>
-							<a href="<?= @route(array_merge($url, ['hashtag[]' => $hashtag->name])) ?>">#<?= $hashtag->name ?></a>
+		<div class="card my-3 shadow-none">
+			<div class="card-body">
+				<h5 class="card-title"><?= @text('COM-EVENTS-EVENTS-TRENDING-HASHTAGS') ?></h5>
+
+				<ul class="nav flex-column nav-pills">
+					<?php foreach ($hashtags as $tag): ?>
+						<li class="nav-item">
+							<a class="nav-link" href="<?= @route(array_merge($url, ['hashtag[]' => $tag->name])) ?>">#<?= $tag->name ?></a>
 						</li>
 					<?php endforeach ?>
 				</ul>

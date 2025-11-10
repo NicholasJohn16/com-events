@@ -43,9 +43,9 @@ class ComEventsViewEventsRss extends LibBaseViewTemplate
 		$link = $doc->createElement('link', route(['view' => 'events']));
 		$channel->appendChild($link);
 
-		if($desc = get_config_value('events', 'rss_description', '')) {
-			$description = $doc->createElement('description', $desc);
-			$channel->appendChild($description);
+		if($description = get_config_value('events', 'rss_description', '')) {
+			$desc = $doc->createElement('description', $description);
+			$channel->appendChild($desc);
 		}
 
 		if($events = $this->getState()->getList()) {

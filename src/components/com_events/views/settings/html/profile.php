@@ -11,42 +11,34 @@
 	<fieldset>
 		<legend><?= @text('COM-ACTORS-PROFILE-INFO-BASIC') ?></legend>
 		
-		<div class="control-group">
-			<label class="control-label" class="control-label" for="actor-name">
+		<div class="form-group">
+			<label class="control-label" for="actor-name">
 				<?= @text('COM-ACTORS-NAME') ?>
 			</label>
-			<div class="controls">
-				<input type="text" class="input-block-level" id="actor-name" size="50" maxlength="100" name="name" value="<?=$item->name?>" required />
-			</div>
+			<input type="text" class="form-control" id="actor-name" size="50" maxlength="100" name="name" value="<?=$item->name?>" required />
 		</div>
 			
-		<div class="control-group">
-			<label class="control-label" for="actor-body">
+		<div class="form-group">
+			<label for="actor-body">
 				<?= @text('COM-ACTORS-BODY') ?>
 			</label>
-			<div class="controls">
-				<textarea class="input-block-level" id="actor-body" name="body" rows="5" cols="5"><?= $item->body?></textarea>
-			</div>
+			<textarea class="form-control" id="actor-body" name="body" rows="5" cols="5"><?= $item->body?></textarea>
 		</div>
 
-		<div class="control-group">
-			<label for="event-start-date" class="label-group">
+		<div class="form-group">
+			<label for="event-start-date">
 				<?= @text('COM-EVENTS-EVENT-START-DATE') ?>
 			</label>
-			<div class="controls">
-				<input type="text" class="input-block-level" id="startDate" value="">
-				<input type="hidden" name="startDate" value="<?= $item->startDate->getDate(DATE_FORMAT_ISO_EXTENDED) ?>Z">
-			</div>
+			<input type="text" class="form-control text-white" id="startDate" value="">
+			<input type="hidden" name="startDate" value="<?= $item->startDate->getDate(DATE_FORMAT_ISO_EXTENDED) ?>Z">
 		</div>
 
-		<div class="control-group">
-			<label for="event-end-date" class="label-group">
+		<div class="form-group">
+			<label for="event-end-date">
 				<?= @text('COM-EVENTS-EVENT-END-DATE') ?>
 			</label>
-			<div class="control">
-				<input type="text" class="input-block-level" id="endDate" value="">
-				<input type="hidden" name="endDate" value="<?= $item->endDate->getDate(DATE_FORMAT_ISO_EXTENDED) ?>Z">
-			</div>
+			<input type="text" class="form-control text-white" id="endDate" value="">
+			<input type="hidden" name="endDate" value="<?= $item->endDate->getDate(DATE_FORMAT_ISO_EXTENDED) ?>Z">
 		</div>
 	</fieldset>
 	
@@ -54,11 +46,11 @@
 	<fieldset>
 		<legend><?= @text($header) ?></legend>
 		<?php foreach ($fields as $label => $field) : ?>
-		<div class="control-group">
+		<div class="form-group">
 			<label><?= @text($label) ?></label>
 			<div class="controls">
 				<?php if (is_object($field)) : ?>
-				<?php $class = (in_array($field->name, array('textarea', 'input'))) ? 'input-block-level' : '' ?>
+				<?php $class = (in_array($field->name, array('textarea', 'input'))) ? 'form-control' : '' ?>
 				<?= $field->class($class)->rows(5)->cols(5) ?>
 				<?php else : ?>
 				<?= $field ?>
@@ -70,7 +62,7 @@
 	<?php endforeach;?>
 	
 	<div class="form-actions">
-        <button type="submit" class="btn" data-loading-text="<?= @text('LIB-AN-ACTION-SAVING') ?>">
+        <button type="submit" class="btn btn-primary" data-loading-text="<?= @text('LIB-AN-ACTION-SAVING') ?>">
             <?= @text('LIB-AN-ACTION-SAVE'); ?>
         </button>
     </div>
