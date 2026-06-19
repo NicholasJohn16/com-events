@@ -98,7 +98,7 @@
 			$hashtags = array();
 			foreach ($items as $item) {
 				foreach($item->eventHashtags as $tag) {
-					if(in_array($tag->hashtag->name, $hashtag)) continue;
+					if(in_array($tag->hashtag->name, $hashtags)) continue;
 					$hashtags[$tag->hashtag->id] = $tag->hashtag;
 				}
 			}
@@ -111,7 +111,7 @@
 				<ul class="nav flex-column nav-pills">
 					<?php foreach ($hashtags as $tag): ?>
 						<li class="nav-item">
-							<a class="nav-link" href="<?= @route(array_merge($url, ['hashtag[]' => $tag->name])) ?>">#<?= $tag->name ?></a>
+							<a class="nav-link" href="<?= @route(['hashtag[]' => $tag->name]) ?>">#<?= $tag->name ?></a>
 						</li>
 					<?php endforeach ?>
 				</ul>
